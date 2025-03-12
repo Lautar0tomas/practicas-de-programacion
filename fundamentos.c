@@ -1,39 +1,57 @@
 #include <stdio.h>   
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+
+// realizar el ejercicio mas dificil del tema del libro "the ultimte c handbook"
 
 int main(){
-    char lista[30][30] ; // matriz 
-    char nombre[20]; // 1 cadena 
+    bool flujo = true ; 
+    int azar = 10 ; 
+    int usuario ; 
 
-
-    printf("ingrese cadenas hasta apretar enter \n");    
+// ahora quiero decir las veces que lo e intentado 
 
     int contador = 0 ; 
+    // ahora quiero que me digas que numeros puse 
+    int contenedor[30]; 
 
-    fgets(nombre , sizeof(nombre) , stdin ); //  
+    printf("adivina el numero que salio \n");
+    while(flujo){        
 
-    while(nombre[0] == ' ' || nombre[0] == '\n'){ // validacion "mientras que sea.."
-        printf("porfavor ingrese almenos un dato para poder continuar \n");
-        fgets(nombre , sizeof(nombre) , stdin ); //se actualiza el dato  
+        scanf("%d", &usuario) ; 
+
+            if(usuario == azar ){
+                printf("haz adivinado el numero! \n");
+                flujo = false ;
+            } else {
+                printf("sigue intentando \n");
+            }
+
+            contenedor[contador] = usuario ;
+            contador++ ;
+    }
+    
+
+    if(contador != 1){
+
+        printf("lo haz intentado %d veces\n" , contador );    
+
+    }else{
+        printf("lo haz intentado %d vez\n", contador);
+    }
+        
+    printf("los numeros que intentaste son : \n");
+
+    for(int i = 0 ; i < contador ; i++){
+        printf("%d\n" , contenedor[i]);
+
     }
 
+    printf("programa finalizado \n");
+
+
     
-    while(nombre[0] != '\n' && nombre[0] != ' '){ // validacion "mientras que no sea" 
-        
-        strcpy(lista[contador], nombre); // [indice] -> "nombre" 
-
-        fgets(nombre , sizeof(nombre) , stdin ); 
-        contador++;
-
-    }
-    
-        
-            printf("los datos son : \n ");
-            for(int i = 0 ; i < contador ; i++){ // mostrar datos (cadenas)
-                printf("\n%s" , lista[i]);
-            }    
-
 
     return 0 ; 
 
