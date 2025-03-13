@@ -3,55 +3,80 @@
 #include <string.h>
 #include <stdbool.h>
 
-// realizar el ejercicio mas dificil del tema del libro "the ultimte c handbook"
-
 int main(){
-    bool flujo = true ; 
-    int azar = 10 ; 
-    int usuario ; 
+    char lista[30][30] ; // matriz 
+    char nombre[20]; // 1 cadena 
 
-// ahora quiero decir las veces que lo e intentado 
+
+    printf("ingrese cadenas hasta apretar enter \n");    
 
     int contador = 0 ; 
-    // ahora quiero que me digas que numeros puse 
-    int contenedor[30]; 
 
-    printf("adivina el numero que salio \n");
-    while(flujo){        
+    fgets(nombre , sizeof(nombre) , stdin ); //  
 
-        scanf("%d", &usuario) ; 
+    // los caracteres especiales siempre se comparan con su mismo tipo , osea caracteres , nombre[caracter-inicial]  = nombre[0]
 
-            if(usuario == azar ){
-                printf("haz adivinado el numero! \n");
-                flujo = false ;
-            } else {
-                printf("sigue intentando \n");
-            }
+    while(nombre[0] == ' ' || nombre[0] == '\n'){ // validacion "mientras que sea.."
+        printf("porfavor ingrese almenos un dato para poder continuar \n");
+        fgets(nombre , sizeof(nombre) , stdin ); //se actualiza el dato  
 
-            contenedor[contador] = usuario ;
-            contador++ ;
     }
+
     
+    while(nombre[0] != '\n' && nombre[0] != ' '){ // validacion "mientras que no sea" 
 
-    if(contador != 1){
+        strcpy(lista[contador], nombre); // [indice] -> "nombre" 
+        contador++;
 
-        printf("lo haz intentado %d veces\n" , contador );    
+        // logica detras de la filtracion de datos para que no se repitan los nombres 
 
-    }else{
-        printf("lo haz intentado %d vez\n", contador);
+        bool repite ; 
+
+        do{
+            repite = false ; 
+
+            fgets(nombre , sizeof(nombre) , stdin ); 
+            
+            for(int i = 0 ; i < contador; i++){
+
+                if(strcmp(lista[i] , nombre) == 0 ){
+                    repite = true ; 
+                    break ; // break rompe unicamente for();, ademas es obligatorio . 
+                }    
+
+            }            
+
+        }while(repite); // si repite se convierte en true , mientras(verdadero) se repetira , si es mientras(falso) simplemente saldra 
+
+
+
     }
-        
-    printf("los numeros que intentaste son : \n");
+
+    // logica detras del ordenamiento alfabeticamente de la lista . 
+
+    char aux[20]; 
 
     for(int i = 0 ; i < contador ; i++){
-        printf("%d\n" , contenedor[i]);
+
+        for(int j =  0 ; j < (contador -1); j++ ){// 
+            if(strcmp(lista[j] , lista[j + 1]) > 0 ){
+
+                strcpy(aux , lista[j]);                // char aux[] = lista[j];
+                strcpy(lista[j] , lista[j + 1]);       // lista[j] = lista[j+ 1] ;
+                strcpy(lista[j + 1] , aux);             //lista[j+1] = aux
+            }
+
+        } 
 
     }
-
-    printf("programa finalizado \n");
-
-
     
+
+        
+            printf("la lista esta ordenada alfabeticamente y filtrada de la siguiente manera  : \n ");
+            for(int i = 0 ; i < contador ; i++){ // mostrar datos (cadenas)
+                printf("\n%s" , lista[i]);
+            }    
+
 
     return 0 ; 
 
