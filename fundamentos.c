@@ -3,76 +3,62 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define CANTIDAD_EMPLEADOS 4 
-#define MESES 3 
-
 void separacion(){
-    printf("\n");
     printf("-------------------------------------------------------------------------------------------------------------------- \n");
 }
 
 
-
-
+    struct pais {
+        int n_habi ; 
+        char nombre[30]; 
+    }; // obligatorio el punto y coma 
+ 
 int main(){
-    char nombre[20];     
-    char nombres_empleados[4][20]; // cadena , cantidad caracteres
 
-    float sueldos[4][3] ;//1ro filas , 2do columnas 
-    float ingreso_acomulado[4]; 
-    float total_sueldos = 0 ; 
-    int j = 0 ;
-    char salida[4][20] = {"primer" , "segundo" , "tercer" , "cuarto"}; 
-    float sueldo ; 
-    char empleado_con_mayor_ingreso[20]; 
+    struct pais argentina , bolivia , uruguay  ; 
 
-    do{
+    printf("ingrese el nombre del primer pais : \n");
+    fgets(argentina.nombre , sizeof(argentina.nombre) , stdin);
+    printf("ingrese la cantidad de habitantes del primer pais : \n");
+    scanf("%d" , &argentina.n_habi);
+    while(getchar() != '\n');
+    separacion();
 
-        for (int i = j ; i < 4;){
-            printf("%s empleado : ", salida[j]);
-            fgets(nombre , sizeof(nombre) , stdin ); 
-            strcpy(nombres_empleados[i] , nombre );
-            break ; 
-        }
-        
-        for (int e = 0; e < 3 ; e++){    
-            printf("sueldo del %s mes es :\n", salida[e]);
-            scanf("%f", &sueldo);
-            sueldos[j][e] = sueldo ;            
-            ingreso_acomulado[j] = ingreso_acomulado[j] + sueldo ;            
-        }
+    printf("ingrese el nombre del segundo pais : \n");
+    fgets(bolivia.nombre , sizeof(bolivia.nombre) , stdin);
+    printf("ingrese la cantidad de habitantes del segundo pais : \n");
+    scanf("%d" , &bolivia.n_habi);
+    while(getchar() != '\n');
+    separacion();
 
 
-        printf("el ingreso acomulado de los ultimos 3 meses de %s es de %.2f pesos", nombres_empleados[j] , ingreso_acomulado[j]);
+    printf("ingrese el nombre del tercer pais : \n");
+    fgets(uruguay.nombre , sizeof(uruguay.nombre) , stdin);
+    printf("ingrese la cantidad de habitantes del tercer pais : \n");
+    scanf("%d" , &uruguay.n_habi);
+    while(getchar() != '\n');
+    separacion();
 
-        total_sueldos = total_sueldos + ingreso_acomulado[j] ;
+    int arr[3] = {argentina.n_habi ,  bolivia.n_habi , uruguay.n_habi};
 
-        j++;
-        separacion();
-        while(getchar() != '\n');
+    int maximo = arr[0] ;
+    int indice = 0 ; 
 
-    }while(j < 4);
-    
-    float maximo = ingreso_acomulado[0] ;
-    int indice_mayor = 0 ; 
-
-    for(int i = 1 ; i < 4 ; i++){
-        if(ingreso_acomulado[i] > maximo){
-            maximo = ingreso_acomulado[i];
-            indice_mayor = i ; 
-            // strcpy(empleado_con_mayor_ingreso , nombres_empleados[i]);
+    for(int i = 1 ; i < 3; i++){
+        if(maximo < arr[i]){
+            maximo = arr[i];
+            indice = i ;
         }
 
     }
-    
-    while(getchar() != '\n');
+    char habitantes[3][20];
+    strcpy(habitantes[0] , argentina.nombre);
+    strcpy(habitantes[1] , bolivia.nombre);
+    strcpy(habitantes[2] , uruguay.nombre);
 
-    printf("el total pagado en sueldos a todos los empleados en los ultimos 3 meses es de %.2f pesos\n" , total_sueldos);
 
-    printf("el empleado con mayores ingresos es %s con ingreso acomulado de : %.2f ", nombres_empleados[indice_mayor], maximo);
-    separacion();// el "nombres_empleados[indice_mayor]  seria el equivalente a "empleado_con_mayores_ingresos" "
+    printf("el nombre del pais con mayor cantidad de habitantes es : %s con la cantidad de %d habitantes\n", habitantes[indice], arr[indice]);
 
-    return 0 ;
 
 }
 
