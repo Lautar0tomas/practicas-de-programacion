@@ -3,15 +3,36 @@
 #include <string.h>
 #include <stdbool.h>
 
-void separacion(){
-    printf("-------------------------------------------------------------------------------------------------------------------- \n");
-}
-
-
     struct pais {
         int n_habi ; 
         char nombre[30]; 
     }; // obligatorio el punto y coma 
+
+void separacion(){
+    printf("-------------------------------------------------------------------------------------------------------------------- \n");
+}
+
+void imprimir_resultado(struct pais argentina , struct pais bolivia , struct pais uruguay ){
+    int arr[3] = {argentina.n_habi ,  bolivia.n_habi , uruguay.n_habi};
+
+    int maximo = arr[0] ;
+    int indice = 0 ; 
+
+    for(int i = 1 ; i < 3; i++){
+        if(maximo < arr[i]){
+            maximo = arr[i];
+            indice = i ;
+        }
+
+    }
+    char habitantes[3][20];
+    strcpy(habitantes[0] , argentina.nombre);
+    strcpy(habitantes[1] , bolivia.nombre);
+    strcpy(habitantes[2] , uruguay.nombre);
+
+    printf("el nombre del pais con mayor cantidad de habitantes es : %s con la cantidad de %d habitantes\n", habitantes[indice], arr[indice]);
+
+}
  
 int main(){
 
@@ -39,26 +60,9 @@ int main(){
     while(getchar() != '\n');
     separacion();
 
-    int arr[3] = {argentina.n_habi ,  bolivia.n_habi , uruguay.n_habi};
+    imprimir_resultado(argentina , bolivia , uruguay);
 
-    int maximo = arr[0] ;
-    int indice = 0 ; 
-
-    for(int i = 1 ; i < 3; i++){
-        if(maximo < arr[i]){
-            maximo = arr[i];
-            indice = i ;
-        }
-
-    }
-    char habitantes[3][20];
-    strcpy(habitantes[0] , argentina.nombre);
-    strcpy(habitantes[1] , bolivia.nombre);
-    strcpy(habitantes[2] , uruguay.nombre);
-
-
-    printf("el nombre del pais con mayor cantidad de habitantes es : %s con la cantidad de %d habitantes\n", habitantes[indice], arr[indice]);
-
+    return 0 ; 
 
 }
 
