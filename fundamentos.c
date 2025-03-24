@@ -12,8 +12,8 @@ void separacion(){
     printf("-------------------------------------------------------------------------------------------------------------------- \n");
 }
 
-void imprimir_resultado(struct pais argentina , struct pais bolivia , struct pais uruguay ){
-    int arr[3] = {argentina.n_habi ,  bolivia.n_habi , uruguay.n_habi};
+void imprimir_resultado(struct pais parametro1 , struct pais parametro2 , struct pais parametro3 ){
+    int arr[3] = {parametro1.n_habi ,  parametro2.n_habi , parametro3.n_habi};
 
     int maximo = arr[0] ;
     int indice = 0 ; 
@@ -26,39 +26,39 @@ void imprimir_resultado(struct pais argentina , struct pais bolivia , struct pai
 
     }
     char habitantes[3][20];
-    strcpy(habitantes[0] , argentina.nombre);
-    strcpy(habitantes[1] , bolivia.nombre);
-    strcpy(habitantes[2] , uruguay.nombre);
+
+    strcpy(habitantes[0] , parametro1.nombre);
+    strcpy(habitantes[1] , parametro2.nombre);
+    strcpy(habitantes[2] , parametro3.nombre);
 
     printf("el nombre del pais con mayor cantidad de habitantes es : %s con la cantidad de %d habitantes\n", habitantes[indice], arr[indice]);
 
 }
+
+
+struct pais cargar_datos(){
+    
+    struct pais instancia;
+
+    printf("ingrese el nombre del pais : \n");
+    fgets(instancia.nombre , sizeof(instancia.nombre) , stdin);
+    printf("ingrese la cantidad de habitantes de ese pais : \n");
+    scanf("%d" , &instancia.n_habi);
+    while(getchar() != '\n');
+    separacion();
+    
+    return instancia ;
+}
+
+
  
 int main(){
 
     struct pais argentina , bolivia , uruguay  ; 
 
-    printf("ingrese el nombre del primer pais : \n");
-    fgets(argentina.nombre , sizeof(argentina.nombre) , stdin);
-    printf("ingrese la cantidad de habitantes del primer pais : \n");
-    scanf("%d" , &argentina.n_habi);
-    while(getchar() != '\n');
-    separacion();
-
-    printf("ingrese el nombre del segundo pais : \n");
-    fgets(bolivia.nombre , sizeof(bolivia.nombre) , stdin);
-    printf("ingrese la cantidad de habitantes del segundo pais : \n");
-    scanf("%d" , &bolivia.n_habi);
-    while(getchar() != '\n');
-    separacion();
-
-
-    printf("ingrese el nombre del tercer pais : \n");
-    fgets(uruguay.nombre , sizeof(uruguay.nombre) , stdin);
-    printf("ingrese la cantidad de habitantes del tercer pais : \n");
-    scanf("%d" , &uruguay.n_habi);
-    while(getchar() != '\n');
-    separacion();
+    argentina = cargar_datos();
+    bolivia = cargar_datos();
+    uruguay = cargar_datos();
 
     imprimir_resultado(argentina , bolivia , uruguay);
 
