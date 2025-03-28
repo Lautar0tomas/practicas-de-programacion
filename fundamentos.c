@@ -2,60 +2,83 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#define cantidad 3 
 
+#define tamano 3
 
-    struct pais {
-        int n_habi ; 
-        char nombre[30]; 
-    }; // obligatorio el punto y coma 
+    struct fecha { 
+        int dd;
+        int mm;
+        int aa;
+    };
 
-void separacion(){
-    printf("-------------------------------------------------------------------------------------------------------------------- \n");
+struct producto {
+    int codigo ; 
+    char nombre[10]; 
+    float precio ;
+    struct fecha fechavencimiento; 
+};
+
+void iterar(){
+    printf("-----------------------------------------------------------------------------------------------\n");
+
 }
 
-void imprimir_resultado(struct pais parametro[cantidad]){
+void imprimir(struct producto pro[tamano]){
 
-    int maximo = parametro[0].n_habi;
-    int indice = 0 ; 
+    for(int i = 0 ; i < tamano ; i++){
+        printf("%d    %s    %0.2f\n",pro[i].codigo , pro[i].nombre , pro[i].precio);
+    }
 
-    for(int i = 1 ; i < cantidad; i++){
-        if(maximo < parametro[i].n_habi){
-            maximo = parametro[i].n_habi;
-            indice = i ;
+float maximo = pro[0].precio;
+int indice = 0 ; 
+    for(int j = 1 ; j < tamano ; j++){
+        if(maximo < pro[j].precio){
+            maximo = pro[j].precio ;
+            indice = j ;
         }
 
     }
-    printf("el nombre del pais con mayor cantidad de habitantes es : %s con la cantidad de %d habitantes\n", parametro[indice].nombre , parametro[indice].n_habi);
+printf("el nombre del articulo con mayor precio es la : %s que sale un total de : %.2f\n" , pro[indice].nombre , pro[indice].precio );
+printf("con fecha de vencimiento el %d/%d/%d\n",pro[indice].fechavencimiento.dd ,pro[indice].fechavencimiento.mm ,pro[indice].fechavencimiento.aa  );
 
 }
 
-void cargar_datos(struct pais parametro[cantidad]){
-    
-    
-    for(int i = 0 ; i < cantidad ; i++){
-        printf("ingrese el nombre del pais : \n");
-        fgets(parametro[i].nombre , sizeof(parametro[i].nombre) , stdin);
-        printf("ingrese la cantidad de habitantes de ese pais : \n");
-        scanf("%d" , &parametro[i].n_habi);
+
+void cargar(struct producto pro[tamano]){
+
+    for(int i = 0 ; i < tamano ; i++){
+        printf("cargar el codigo del producto\n");
+        scanf("%d" , &pro[i].codigo);
         while(getchar() != '\n');
-        separacion();
+        printf("cargar el nombre del producto\n");
+        fgets(pro[i].nombre , sizeof(pro[i].nombre) , stdin);
+        printf("cargar precio del producto\n");
+        scanf("%f" , &pro[i].precio);
+        // while(getchar() != '\n');
+        printf("vencimiento dia\n");
+        scanf("%d", &pro[i].fechavencimiento.dd);
+        printf("vencimiento mes\n");
+        scanf("%d", &pro[i].fechavencimiento.mm);
+        printf("año\n");
+        scanf("%d", &pro[i].fechavencimiento.aa);
+        iterar();
     }
-    
+
+
+
 }
 
 
- 
 int main(){
 
-    struct pais paises[cantidad]; 
-    cargar_datos(paises); //paises = paises[0];
-    imprimir_resultado(paises);
+    struct fecha fechavencimiento[tamano];
+    struct producto pro[tamano];
+    cargar(pro);
+    imprimir(pro);
 
-    return 0 ; 
 
+    return 0 ;
 }
-
 
 
 
